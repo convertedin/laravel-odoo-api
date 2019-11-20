@@ -19,4 +19,9 @@ class QueryBuilder
         return $this->conditions;
     }
 
+    public function isEmpty()
+    {
+        return empty($this->conditions);
+    }
+
 }

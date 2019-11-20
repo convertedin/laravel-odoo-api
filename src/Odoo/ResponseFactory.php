@@ -13,18 +13,20 @@ class ResponseFactory
 
     public function makeResponse($rawResponse, $intendedResponseClasses = null): Response
     {
-        $response = null;
-        if(FaultCodeResponse::applies($rawResponse)){
-            $response = new FaultCodeResponse($rawResponse);
-        }else{
-
-            if(empty($intendedResponseClasses)){
-                //Todo default Responses
-                throw new \Exception("not implemented!");
-            }
-
-            $response = static::makeIntendedResponse($rawResponse, $intendedResponseClasses);
-        }
+        //Handled in Request Builder
+//        $response = null;
+//        if(FaultCodeResponse::applies($rawResponse)){
+//            $response = new FaultCodeResponse($rawResponse);
+//        }else{
+//
+//            if(empty($intendedResponseClasses)){
+//                //Todo default Responses
+//                throw new \Exception("not implemented!");
+//            }
+//
+//
+//        }
+        $response = static::makeIntendedResponse($rawResponse, $intendedResponseClasses);
 
         if(!$response){
             throw new OdooException("Unknown Response Type returned!");
@@ -35,7 +37,7 @@ class ResponseFactory
 
 
 
-    protected function makeIntendedResponse($rawResponse, $intendedResponseClasses)
+    protected function makeIntendedResponse($rawResponse, $intendedResponseClasses) : Response
     {
         if(!is_array($intendedResponseClasses)){
             $intendedResponseClasses = [$intendedResponseClasses];
@@ -45,6 +47,9 @@ class ResponseFactory
             if(call_user_func([$intendedClass, 'applies'], $rawResponse)){
                 try {
                     $class = new \ReflectionClass($intendedClass);
+                    if(!$class->isSubclassOf(Response::class)){
+                        throw new OdooException("Invalid Response Class given!");
+                    }
                     return $class->newInstance($rawResponse);
                 } catch (\ReflectionException $e) {
                     // Its not possible to use this type -> its ok

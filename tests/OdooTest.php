@@ -35,14 +35,17 @@ class OdooTest extends TestCase
     protected function setDemoCredentials()
     {
 
-        $info = Ripcord::client('https://demo.odoo.com/start', [
-            'encoding' => 'utf-8'
-        ])->start();
+//        $info = Ripcord::client('https://demo.odoo.com/start', [
+//            'encoding' => 'utf-8'
+//        ])->start();
+//
+//        list($this->host, $this->db, $this->username, $this->password) =
+//            array($info['host'], $info['database'], $info['user'], $info['password']);
 
-//        $info = $this->odoo->getClient('https://demo.odoo.com/start')->start();
-
-        list($this->host, $this->db, $this->username, $this->password) =
-            array($info['host'], $info['database'], $info['user'], $info['password']);
+        $this->host = "http://localhost:18069";
+        $this->db = "pcweb_live";
+        $this->username = 'admin';
+        $this->password = 'admin';
 
     }
 
@@ -92,13 +95,17 @@ class OdooTest extends TestCase
 
     public function testCount()
     {
-        $amount = $this->odoo->count('res.partner');
+        $amount = $this->odoo
+            ->model('res.partner')
+            ->count();
         $this->assertEquals('integer', gettype($amount));
     }
 
     public function testCountWhere()
     {
-        $amount = $this->odoo->count('res.partner');
+        $amount = $this->odoo
+            ->model('res.partner')
+            ->count();
 
         $customerAmount = $this->odoo
             ->model('res.partner')
@@ -160,6 +167,16 @@ class OdooTest extends TestCase
         $this->assertArrayNotHasKey('email',$items->first());
     }
 
+    public function testFirst()
+    {
+        $item = $this->odoo
+            ->model('res.partner')
+            ->first();
+
+
+        $this->assertArrayHasKey('name',$item);
+    }
+
     /** @test */
     public function testListFields()
     {
@@ -182,95 +199,121 @@ class OdooTest extends TestCase
         $this->assertEquals('integer', gettype($id));
     }
 
-
-    /** @test */
-    public function delete_a_record()
+    public function testDeleteRecord()
     {
         $id = $this->odoo
-            ->create('res.partner',['name' => 'John Odoo']);
+            ->model('res.partner')
+            ->create([
+                'name' => 'Bobby Brown'
+            ]);
 
         $this->assertEquals('integer', gettype($id));
 
-        $result = $this->odoo->deleteById('res.partner',$id);
-
-        $ids = $this->odoo
-            ->where('id', $id)
-            ->search('res.partner');
-
-        $this->assertTrue($ids->isEmpty());
-
-        $this->assertEquals('boolean', gettype($result));
-    }
-
-    /** @test */
-    public function delete_two_record()
-    {
         $this->odoo
-            ->create('res.partner',['name' => 'John Odoo']);
-        $this->odoo
-            ->create('res.partner',['name' => 'John Odoo']);
+            ->model('res.partner')
+            ->deleteById($id);
 
         $ids = $this->odoo
-            ->where('name', 'John Odoo')
-            ->search('res.partner');
+            ->model('res.partner')
+            ->where('id', '=', $id)
+            ->search();
 
-        $result = $this->odoo->deleteById('res.partner',$ids);
+        $this->assertEmpty($ids);
+    }
+
+    public function testDeleteSearch()
+    {
+        $id = $this->odoo
+            ->model('res.partner')
+            ->create([
+                'name' => 'Bobby Brown'
+            ]);
+
+        $this->assertEquals('integer', gettype($id));
+
+        $deleteResponse = $this->odoo
+            ->model('res.partner')
+            ->where('name', '=', 'Bobby Brown')
+            ->delete();
+
+        $this->assertTrue($deleteResponse);
 
         $ids = $this->odoo
-            ->where('name', 'John Odoo')
-            ->search('res.partner');
+            ->model('res.partner')
+            ->where('name', '=', 'Bobby Brown')
+            ->search();
 
-        $this->assertTrue($ids->isEmpty());
+        $this->assertEmpty($ids);
 
-        $this->assertEquals('boolean', gettype($result));
     }
 
-    /** @test */
-    public function delete_a_record_directly()
+    public function testUpdateById()
     {
-        // Create a record
-        $this->odoo->create('res.partner',['name' => 'John Odoo']);
+        $id = $this->odoo
+            ->model('res.partner')
+            ->create([
+                'name' => 'Bobby Brown'
+            ]);
 
-        // Delete it
-        $result = $this->odoo->where('name', 'John Odoo')
-            ->delete('res.partner');
+        $this->assertEquals('integer', gettype($id));
 
-        $this->assertEquals('boolean', gettype($result));
+        $updateResponse = $this->odoo
+            ->model('res.partner')
+            ->updateById($id,[
+                'name' => 'Dagobert Duck'
+            ]);
+
+        $this->assertTrue($updateResponse);
+
+        $item = $this->odoo
+            ->model('res.partner')
+            ->where('id', '=', $id)
+            ->fields(['name'])
+            ->first();
+
+        $this->assertEquals('Dagobert Duck', $item['name']);
     }
 
-    /** @test */
-    public function update_record_with_new_name()
+    public function testUpdateSearch()
     {
-        // Create a record
-        $initId = $this->odoo->create('res.partner',['name' => 'John Odoo','email' => 'Johndoe@odoo.com']);
+        $id = $this->odoo
+            ->model('res.partner')
+            ->create([
+                'name' => 'Bobby Brown'
+            ]);
 
-        //Update the name
-        $updated = $this->odoo->where('name', 'John Odoo')
-            ->update('res.partner',['name' => 'John Odoo Updated','email' => 'newJohndoe@odoo.com']);
+        $this->assertEquals('integer', gettype($id));
 
-        $this->assertTrue($updated);
+        $updateResponse = $this->odoo
+            ->model('res.partner')
+            ->where('name', '=', 'Bobby Brown')
+            ->update([
+                'name' => 'Dagobert Duck'
+            ]);
 
+        $this->assertTrue($updateResponse);
 
-        //Delete the record
-        $result = $this->odoo->deleteById('res.partner',$initId);
+        $ids = $this->odoo
+            ->model('res.partner')
+            ->where('name', '=', 'Bobby Brown')
+            ->search();
 
-        $this->assertTrue($result);
+        $this->assertEmpty($ids);
 
     }
 
-    /** @test */
-    public function using_call_directly()
-    {
-        $ids = $this->odoo->call('res.partner', 'search',[
-            [
-                ['is_company', '=', true],
-                ['customer', '=', true]
-            ]
-        ],[
-            'offset'=>1,
-            'limit'=>5
-        ]);
-
-        $this->assertCount(5,$ids);
+    public function testCallMethodDirect(){
+        $ids = $this->odoo
+            ->model('res.partner')
+            ->setMethod('search')
+            ->setArguments([[
+                ['is_company', '=', true]
+            ]])
+            ->setOption('limit', 3)
+            ->addResponseClass(Odoo\Response\ListResponse::class)
+            ->get();
+        $this->assertInstanceOf(Collection::class, $ids);
+        $this->assertCount(3, $ids);
     }
+
 }

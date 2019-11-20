@@ -7,6 +7,9 @@ namespace Edujugon\Laradoo\Odoo\Request;
 use Carbon\Traits\Options;
 use Edujugon\Laradoo\Exceptions\OdooException;
 use Edujugon\Laradoo\Odoo\Client;
+use Edujugon\Laradoo\Odoo\Response\BooleanResponse;
+use Edujugon\Laradoo\Odoo\Response\EmptyListResponse;
+use Edujugon\Laradoo\Odoo\Response\FaultCodeResponse;
 use Edujugon\Laradoo\Odoo\Response\ListResponse;
 use Edujugon\Laradoo\Odoo\Response\NumericResponse;
 use Edujugon\Laradoo\Odoo\Response\ScalarResponse;
@@ -57,6 +60,7 @@ class RequestBuilder
      */
     public function __construct()
     {
+        $this->responseClasses = [FaultCodeResponse::class];
         $this->queryBuilder = new QueryBuilder();
         $this->options = new OptionsBuilder();
     }
@@ -64,6 +68,9 @@ class RequestBuilder
 
     public function build()
     {
+        if(empty($this->model)){
+            throw new OdooException("Model not set!");
+        }
         return new Request(
             $this->client,
             $this->responseFactory,
@@ -167,9 +174,14 @@ class RequestBuilder
      * @param $class
      * @return $this
      */
-    public function addResponseClass($class)
+    public function addResponseClass($class, $pushTop = false)
     {
-        $this->responseClasses[] = $class;
+        if ($pushTop) {
+            array_unshift($this->responseClasses, $class);
+        } else {
+            array_push($this->responseClasses, $class);
+        }
+
         return $this;
     }
 
@@ -242,6 +254,7 @@ class RequestBuilder
     public function search()
     {
         $this->method = 'search';
+        $this->addResponseClass(EmptyListResponse::class, true);
         $this->addResponseClass(ListResponse::class);
 
         $this->addArgument($this->queryBuilder->build());
@@ -258,18 +271,10 @@ class RequestBuilder
      */
     public function read($ids)
     {
-        if ($ids instanceof Collection) {
-            $ids = $ids->all();
-        }
-        if (is_numeric($ids)) {
-            $ids = [$ids];
-        }
-
-        if (!is_array($ids)) {
-            throw new OdooException("Invalid type given for ids");
-        }
+        $ids = $this->extractIds($ids);
 
         $this->method = 'read';
+        $this->addResponseClass(EmptyListResponse::class, true);
         $this->addResponseClass(ListResponse::class);
         $this->arguments = [$ids];
 
@@ -282,6 +287,7 @@ class RequestBuilder
     public function get()
     {
         $this->method = 'search_read';
+        $this->addResponseClass(EmptyListResponse::class, true);
         $this->addResponseClass(ListResponse::class);
 
         $this->addArgument($this->queryBuilder->build());
@@ -289,6 +295,11 @@ class RequestBuilder
         $request = $this->build();
 
         return $request->get();
+    }
+
+    public function first()
+    {
+        return $this->limit(1)->get()->first();
     }
 
     public function listModelFields($attributes = ['string', 'help', 'type'])
@@ -303,6 +314,89 @@ class RequestBuilder
         return $request->get();
     }
 
+    public function create($attributes)
+    {
+        $this->method = 'create';
+        $this->addResponseClass(NumericResponse::class);
+
+        $this->setArguments([$attributes]);
+
+        $request = $this->build();
+
+        return $request->get();
+    }
+
+    public function deleteById($ids)
+    {
+        $ids = $this->extractIds($ids);
+
+        $this->method = 'unlink';
+        $this->addResponseClass(BooleanResponse::class);
+
+        $this->setArguments([$ids]);
+
+        $request = $this->build();
+
+        return $request->get();
+
+    }
+
+    /**
+     * @param bool $force
+     * @return mixed
+     * @throws OdooException
+     */
+    public function delete($force = false)
+    {
+        if(!$force && $this->queryBuilder->isEmpty()){
+            throw new OdooException("You are gonna delete all records of ".$this->model. "! This is only possible with 'force' flag.");
+        }
+        $ids = $this->search();
+
+        return $this->deleteById($ids);
+    }
+
+    public function updateById($ids, $attributes)
+    {
+        $ids = $this->extractIds($ids);
+
+        $this->method = 'write';
+
+        $this->addResponseClass(BooleanResponse::class);
+
+        $this->setArguments([$ids, $attributes]);
+
+        $request = $this->build();
+
+        return $request->get();
+    }
+
+    public function update($attributes, $force = false)
+    {
+        if(!$force && $this->queryBuilder->isEmpty()){
+            throw new OdooException("You are gonna update all records of ".$this->model. "! This is only possible with 'force' flag.");
+        }
+
+        $ids = $this->search();
+
+        return $this->updateById($ids, $attributes);
+
+    }
+
     #endregion
+
+    private function extractIds($ids)
+    {
+        if ($ids instanceof Collection) {
+            $ids = $ids->all();
+        }
+        if (!is_array($ids)) {
+            $ids = [$ids];
+        }
+        if (!is_array($ids)) {
+            throw new OdooException("Invalid type given for ids");
+        }
+        return $ids;
+    }
 
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo\Response;
+namespace Obuchmann\LaravelOdooApi\Odoo\Response;
 
 
 class ListResponse extends ScalarResponse

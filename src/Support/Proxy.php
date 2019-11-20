@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Support;
+namespace Obuchmann\LaravelOdooApi\Support;
 
 
 trait Proxy

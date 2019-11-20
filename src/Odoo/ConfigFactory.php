@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo;
+namespace Obuchmann\LaravelOdooApi\Odoo;
 
 
-use Edujugon\Laradoo\Exceptions\ConfigurationException;
+use Obuchmann\LaravelOdooApi\Exceptions\ConfigurationException;
 
 class ConfigFactory
 {
@@ -35,8 +35,8 @@ class ConfigFactory
             $this->getRequired('host'),
             $this->getRequired('username'),
             $this->getRequired('password'),
-            laradooAddCharacter(data_get($this->config, 'suffix', '/xmlrpc/2'), '/'),
-            laradooRemoveCharacter(data_get($this->config, 'encoding', 'utf-8'), '/')
+            laravelOdooApiAddCharacter(data_get($this->config, 'suffix', '/xmlrpc/2'), '/'),
+            laravelOdooApiRemoveCharacter(data_get($this->config, 'encoding', 'utf-8'), '/')
         );
     }
 

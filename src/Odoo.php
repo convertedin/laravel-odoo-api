@@ -1,22 +1,15 @@
 <?php
-/**
- * Project: Laradoo.
- * User: Edujugon
- * Email: edujugon@gmail.com
- * Date: 10/5/17
- * Time: 16:04
- */
 
-namespace Edujugon\Laradoo;
+namespace Obuchmann\LaravelOdooApi;
 
-use Edujugon\Laradoo\Exceptions\OdooException;
-use Edujugon\Laradoo\Odoo\CommonEndpoint;
-use Edujugon\Laradoo\Odoo\Config;
-use Edujugon\Laradoo\Odoo\ConfigFactory;
-use Edujugon\Laradoo\Odoo\ObjectEndpoint;
-use Edujugon\Laradoo\Odoo\Request\RequestBuilder;
-use Edujugon\Laradoo\Odoo\Response\VersionResponse;
-use Edujugon\Laradoo\Support\Proxy;
+use Obuchmann\LaravelOdooApi\Exceptions\OdooException;
+use Obuchmann\LaravelOdooApi\Odoo\CommonEndpoint;
+use Obuchmann\LaravelOdooApi\Odoo\Config;
+use Obuchmann\LaravelOdooApi\Odoo\ConfigFactory;
+use Obuchmann\LaravelOdooApi\Odoo\ObjectEndpoint;
+use Obuchmann\LaravelOdooApi\Odoo\Request\RequestBuilder;
+use Obuchmann\LaravelOdooApi\Odoo\Response\VersionResponse;
+use Obuchmann\LaravelOdooApi\Support\Proxy;
 use Illuminate\Support\Collection;
 use Ripcord\Client\Client;
 use Ripcord\Ripcord;
@@ -26,7 +19,7 @@ use Ripcord\Ripcord;
  *
  * A Plain assembly Class
  *
- * @package Edujugon\Laradoo
+ * @package Obuchmann\LaravelOdooApi
  * @method Odoo username(string $username)
  * @method Odoo password(string $password)
  * @method Odoo db(string $db)
@@ -42,8 +35,6 @@ use Ripcord\Ripcord;
  * @method RequestBuilder limit($limit, $offset = 0)
  * @method RequestBuilder fields($fields)
  * @method RequestBuilder model($model)
- * @method int count()
- * @method Collection search()
  */
 class Odoo
 {
@@ -77,7 +68,7 @@ class Odoo
      */
     protected function loadConfigData()
     {
-        $this->configFactory = new ConfigFactory(laradooConfig());
+        $this->configFactory = new ConfigFactory(laravelOdooApiConfig());
 
         $this->proxy($this->configFactory, [
             'host' => 'setHost',

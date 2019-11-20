@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo\Request;
+namespace Obuchmann\LaravelOdooApi\Odoo\Request;
 
 
-use Edujugon\Laradoo\Odoo\Client;
-use Edujugon\Laradoo\Odoo\Response\Response;
-use Edujugon\Laradoo\Odoo\ResponseFactory;
+use Obuchmann\LaravelOdooApi\Odoo\Client;
+use Obuchmann\LaravelOdooApi\Odoo\Response\Response;
+use Obuchmann\LaravelOdooApi\Odoo\ResponseFactory;
 
 class Request
 {
@@ -78,7 +78,7 @@ class Request
 
     /**
      * @return Response
-     * @throws \Edujugon\Laradoo\Exceptions\OdooException
+     * @throws \Obuchmann\LaravelOdooApi\Exceptions\OdooException
      */
     public function getResponse(): Response
     {
@@ -94,7 +94,7 @@ class Request
 
     /**
      * @return mixed
-     * @throws \Edujugon\Laradoo\Exceptions\OdooException
+     * @throws \Obuchmann\LaravelOdooApi\Exceptions\OdooException
      */
     public function get()
     {

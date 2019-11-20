@@ -1,18 +1,11 @@
 <?php
-/**
- * Project: laradoo.
- * User: Edujugon
- * Email: edujugon@gmail.com
- * Date: 10/5/17
- * Time: 16:04
- */
 
 /**
  * Get configuration array data.
  *
  * @return array
  */
-function laradooConfig()
+function laravelOdooApiConfig()
 {
     $defaults = [
         'api-suffix' => 'xmlrpc/2',
@@ -22,8 +15,8 @@ function laradooConfig()
     $configuration = [];
 
     if (function_exists('config_path')) {
-        if (file_exists(config_path('laradoo.php'))) {
-            $configuration = include(config_path('laradoo.php'));
+        if (file_exists(config_path('laravel-odoo-api.php'))) {
+            $configuration = include(config_path('laravel-odoo-api.php'));
 
         }
     }
@@ -41,7 +34,7 @@ function laradooConfig()
  * @param bool $suffix
  * @return string
  */
-function laradooAddCharacter($text, $char, $prefix = true, $suffix = true)
+function laravelOdooApiAddCharacter($text, $char, $prefix = true, $suffix = true)
 {
     if ($prefix && substr($text, 0, 1) !== $char)
         $text = $char . $text;
@@ -62,7 +55,7 @@ function laradooAddCharacter($text, $char, $prefix = true, $suffix = true)
  * @param bool $suffix
  * @return string
  */
-function laradooRemoveCharacter($text, $char, $prefix = true, $suffix = true)
+function laravelOdooApiRemoveCharacter($text, $char, $prefix = true, $suffix = true)
 {
     if ($prefix && substr($text, 0, 1) === $char)
         $text = substr($text,1);

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Exceptions;
+namespace Obuchmann\LaravelOdooApi\Exceptions;
 
 use Exception;
 

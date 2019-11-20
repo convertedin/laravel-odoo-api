@@ -1,33 +1,33 @@
 {
-    "name": "edujugon/laradoo",
-    "description": "Odoo ERP API for Laravel",
-    "keywords": ["odoo","laravel","erp","package"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Eduardo Marcos",
-            "email": "edujugon@gmail.com"
-        },
-      {
-        "name": "Oliver Buchmann",
-        "email": "obuchmanncode@gmail.com"
-      }
-    ],
-    "autoload": {
-      "psr-4": {
-        "Edujugon\\Laradoo\\": "src/"
-      },
-      "files": [
-          "src/Support/helpers.php"
-      ]
-    },
-    "minimum-stability": "dev",
-    "require": {
-        "php": "^7.2",
-        "illuminate/support": "^5.1||^6.0",
-        "darkaonline/ripcord": "dev-master"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4.8||^8.0"
+  "name": "obuchmann/laravel-odoo-api",
+  "description": "Laravel connector for Odoo",
+  "keywords": [
+    "odoo",
+    "laravel",
+    "package"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Oliver Buchmann",
+      "email": "obuchmanncode@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Obuchmann\\LaravelOdooApi\\": "src/"
+    },
+    "files": [
+      "src/Support/helpers.php"
+    ]
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^7.2",
+    "illuminate/support": "^5.2||^6.0",
+    "darkaonline/ripcord": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8||^8.0"
+  }
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo;
+namespace Obuchmann\LaravelOdooApi\Odoo;
 
 
 abstract class Endpoint

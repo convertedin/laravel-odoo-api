@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo;
+namespace Obuchmann\LaravelOdooApi\Odoo;
 
 
-use Edujugon\Laradoo\Exceptions\ConfigurationException;
+use Obuchmann\LaravelOdooApi\Exceptions\ConfigurationException;
 
 class Config
 {

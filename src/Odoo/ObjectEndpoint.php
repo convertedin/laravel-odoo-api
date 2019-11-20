@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo;
+namespace Obuchmann\LaravelOdooApi\Odoo;
 
 
-use Edujugon\Laradoo\Odoo\Response\BooleanResponse;
-use Edujugon\Laradoo\Odoo\Response\Response;
+use Obuchmann\LaravelOdooApi\Odoo\Response\BooleanResponse;
+use Obuchmann\LaravelOdooApi\Odoo\Response\Response;
 
 class ObjectEndpoint extends Endpoint
 {
@@ -47,9 +47,9 @@ class ObjectEndpoint extends Endpoint
         $request = $this->newRequest()
             ->setModel($model)
             ->setMethod('check_access_rights')
-            ->setArguments($permission)
+            ->setArguments([$permission])
             ->setOption('raise_exception', $withExceptions)
-            ->setResponseClasses([BooleanResponse::class])
+            ->addResponseClass(BooleanResponse::class)
             ->build();
 
         return $request->get();
@@ -84,7 +84,7 @@ class ObjectEndpoint extends Endpoint
     /**
      * @param $model
      * @return mixed
-     * @throws \Edujugon\Laradoo\Exceptions\OdooException
+     * @throws \Obuchmann\LaravelOdooApi\Exceptions\OdooException
      */
 //    public function count($model)
 //    {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo;
+namespace Obuchmann\LaravelOdooApi\Odoo;
 
 
 use Ripcord\Client\Transport\Stream;

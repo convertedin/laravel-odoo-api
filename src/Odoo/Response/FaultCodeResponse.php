@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo\Response;
+namespace Obuchmann\LaravelOdooApi\Odoo\Response;
 
 
-use Edujugon\Laradoo\Exceptions\OdooException;
+use Obuchmann\LaravelOdooApi\Exceptions\OdooException;
 
 class FaultCodeResponse extends Response
 {

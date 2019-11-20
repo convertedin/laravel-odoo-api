@@ -7,35 +7,35 @@ return [
     | Must start with http:// or https://
     |--------------------------------------------------------------------------
     */
-    'host' => env('LARADOO_HOST',''),
+    'host' => env('LARAVEL_ODOO_API_HOST',''),
 
     /*
     |--------------------------------------------------------------------------
     | DB name
     |--------------------------------------------------------------------------
     */
-    'db' => env('LARADOO_DB_NAME',''),
+    'db' => env('LARAVEL_ODOO_API_DB_NAME',''),
 
     /*
     |--------------------------------------------------------------------------
     | User name
     |--------------------------------------------------------------------------
     */
-    'user' => env('LARADOO_USER_NAME', ''),
+    'user' => env('LARAVEL_ODOO_API_USER_NAME', ''),
 
     /*
     |--------------------------------------------------------------------------
     | User password
     |--------------------------------------------------------------------------
     */
-    'password' => env('LARADOO_USER_PASSWORD', ''),
+    'password' => env('LARAVEL_ODOO_API_USER_PASSWORD', ''),
 
     /*
     |--------------------------------------------------------------------------
     | Encoding
     |--------------------------------------------------------------------------
     */
-    'encoding' => env('LARADOO_ENCODING',env('RIPCORD_ENCODING', 'utf-8')),
+    'encoding' => env('LARAVEL_ODOO_API_ENCODING',env('RIPCORD_ENCODING', 'utf-8')),
 
     /*
    |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
    | xmlrpc' from version 7.0 and earlier, 'xmlrpc/2' from version 8.0 and above.
    |--------------------------------------------------------------------------
    */
-    'api-suffix' => env('LARADOO_API_SUFFIX','xmlrpc/2'),
+    'api-suffix' => env('LARAVEL_ODOO_API_API_SUFFIX','xmlrpc/2'),
 
 
 ];

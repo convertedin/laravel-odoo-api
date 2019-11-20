@@ -1,7 +1,7 @@
 <?php
 
-use Edujugon\Laradoo\Exceptions\AuthenticationException;
-use Edujugon\Laradoo\Odoo;
+use Obuchmann\LaravelOdooApi\Exceptions\AuthenticationException;
+use Obuchmann\LaravelOdooApi\Odoo;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
 use Ripcord\Ripcord;

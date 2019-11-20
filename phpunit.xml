@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="ERP Test Suite">
+        <testsuite name="Odoo Test Suite">
             <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>

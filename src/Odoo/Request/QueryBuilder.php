@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo\Request;
+namespace Obuchmann\LaravelOdooApi\Odoo\Request;
 
 
 class QueryBuilder

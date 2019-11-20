@@ -1,11 +1,4 @@
 <?php
-/**
- * Project: laradoo.
- * User: Edujugon
- * Email: edujugon@gmail.com
- * Date: 18/5/17
- * Time: 10:18
- */
 
 use PHPUnit\Framework\TestCase;
 
@@ -16,6 +9,6 @@ class GlobalHelpersTest extends TestCase
     {
         $text = 'http://myurl.com/';
 
-        $this->assertEquals('http://myurl.com',laradooRemoveCharacter($text,'/'));
+        $this->assertEquals('http://myurl.com',laravelOdooApiRemoveCharacter($text,'/'));
     }
 }

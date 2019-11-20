@@ -1,8 +1,8 @@
 <?php
 
-namespace Edujugon\Laradoo\Providers;
+namespace Obuchmann\LaravelOdooApi\Providers;
 
-use Edujugon\Laradoo\Odoo;
+use Obuchmann\LaravelOdooApi\Odoo;
 use Illuminate\Support\ServiceProvider;
 
 class OdooServiceProvider extends ServiceProvider
@@ -14,7 +14,7 @@ class OdooServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $config_path = function_exists('config_path') ? config_path('laradoo.php') : 'laradoo.php';
+        $config_path = function_exists('config_path') ? config_path('laravel-odoo-api.php') : 'laravel-odoo-api.php';
 
         $this->publishes([
             __DIR__.'/../Config/config.php' => $config_path,

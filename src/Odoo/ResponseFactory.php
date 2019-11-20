@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo;
+namespace Obuchmann\LaravelOdooApi\Odoo;
 
 
-use Edujugon\Laradoo\Exceptions\OdooException;
-use Edujugon\Laradoo\Odoo\Response\FaultCodeResponse;
-use Edujugon\Laradoo\Odoo\Response\Response;
+use Obuchmann\LaravelOdooApi\Exceptions\OdooException;
+use Obuchmann\LaravelOdooApi\Odoo\Response\FaultCodeResponse;
+use Obuchmann\LaravelOdooApi\Odoo\Response\Response;
 
 class ResponseFactory
 {
@@ -56,6 +56,6 @@ class ResponseFactory
                 }
             }
         }
-        return null;
+        throw new OdooException("No suitable Response Class given!");
     }
 }

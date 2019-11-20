@@ -1,19 +1,19 @@
 <?php
 
 
-namespace Edujugon\Laradoo\Odoo\Request;
+namespace Obuchmann\LaravelOdooApi\Odoo\Request;
 
 
 use Carbon\Traits\Options;
-use Edujugon\Laradoo\Exceptions\OdooException;
-use Edujugon\Laradoo\Odoo\Client;
-use Edujugon\Laradoo\Odoo\Response\BooleanResponse;
-use Edujugon\Laradoo\Odoo\Response\EmptyListResponse;
-use Edujugon\Laradoo\Odoo\Response\FaultCodeResponse;
-use Edujugon\Laradoo\Odoo\Response\ListResponse;
-use Edujugon\Laradoo\Odoo\Response\NumericResponse;
-use Edujugon\Laradoo\Odoo\Response\ScalarResponse;
-use Edujugon\Laradoo\Odoo\ResponseFactory;
+use Obuchmann\LaravelOdooApi\Exceptions\OdooException;
+use Obuchmann\LaravelOdooApi\Odoo\Client;
+use Obuchmann\LaravelOdooApi\Odoo\Response\BooleanResponse;
+use Obuchmann\LaravelOdooApi\Odoo\Response\EmptyListResponse;
+use Obuchmann\LaravelOdooApi\Odoo\Response\FaultCodeResponse;
+use Obuchmann\LaravelOdooApi\Odoo\Response\ListResponse;
+use Obuchmann\LaravelOdooApi\Odoo\Response\NumericResponse;
+use Obuchmann\LaravelOdooApi\Odoo\Response\ScalarResponse;
+use Obuchmann\LaravelOdooApi\Odoo\ResponseFactory;
 use Illuminate\Support\Collection;
 
 class RequestBuilder
@@ -233,7 +233,7 @@ class RequestBuilder
     /**
      * @param null $model
      * @return mixed
-     * @throws \Edujugon\Laradoo\Exceptions\OdooException
+     * @throws \Obuchmann\LaravelOdooApi\Exceptions\OdooException
      */
     public function count()
     {
@@ -267,7 +267,7 @@ class RequestBuilder
     /**
      * @param $ids array|Collection
      * @return mixed
-     * @throws \Edujugon\Laradoo\Exceptions\OdooException
+     * @throws \Obuchmann\LaravelOdooApi\Exceptions\OdooException
      */
     public function read($ids)
     {

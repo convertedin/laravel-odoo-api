@@ -1,8 +1,10 @@
 <?php
 
+use Edujugon\Laradoo\Exceptions\AuthenticationException;
 use Edujugon\Laradoo\Odoo;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
+use Ripcord\Ripcord;
 
 class OdooTest extends TestCase
 {
@@ -33,7 +35,11 @@ class OdooTest extends TestCase
     protected function setDemoCredentials()
     {
 
-        $info = $this->odoo->getClient('https://demo.odoo.com/start')->start();
+        $info = Ripcord::client('https://demo.odoo.com/start', [
+            'encoding' => 'utf-8'
+        ])->start();
+
+//        $info = $this->odoo->getClient('https://demo.odoo.com/start')->start();
 
         list($this->host, $this->db, $this->username, $this->password) =
             array($info['host'], $info['database'], $info['user'], $info['password']);
@@ -54,107 +60,128 @@ class OdooTest extends TestCase
     }
 
 
-    /** @test */
-    public function get_odoo_version_as_collection()
+    public function testOdooAuthenticationException()
+    {
+        $this->expectException(AuthenticationException::class);
+
+        $this->odoo = (new Odoo())
+            ->username($this->username)
+            ->password($this->password.'invalid')
+            ->db($this->db)
+            ->host($this->host)
+            ->connect();
+    }
+
+    public function testVersion()
     {
         $version = $this->odoo->version();
-
-        $this->assertInstanceOf(Collection::class, $version);
+        $this->assertInstanceOf(Odoo\Response\VersionResponse::class, $version);
     }
 
-    /** @test */
-    public function get_odoo_version_only_server_version()
-    {
-        $version = $this->odoo->version('server_version');
-
-        $this->assertEquals('string', gettype($version));
-    }
-
-
-
-    /** @test */
-    public function test_common_connection_odoo()
+    public function testSuccessfulConnection()
     {
         $this->assertEquals('integer', gettype($this->odoo->getUid()));
-
     }
 
-
-    /** @test */
-    public function check_access_to_models()
+    public function testCheckModelAccess()
     {
         $check = $this->odoo->can('read', 'res.partner');
 
         $this->assertTrue($check);
     }
 
-    /** @test */
-    public function using_search_method()
-    {
-        $ids = $this->odoo
-            ->where('customer', '=', true)
-            ->search('res.partner');
-
-        $this->assertArrayNotHasKey('faultCode',$ids);
-        $this->assertInstanceOf(Collection::class, $ids);
-        $this->assertNotEmpty($ids);
-    }
-
-    /** @test */
-    public function count_items()
+    public function testCount()
     {
         $amount = $this->odoo->count('res.partner');
-
         $this->assertEquals('integer', gettype($amount));
     }
 
-    /** @test */
-    public function get_limited_ids()
+    public function testCountWhere()
+    {
+        $amount = $this->odoo->count('res.partner');
+
+        $customerAmount = $this->odoo
+            ->model('res.partner')
+            ->where('is_company', '=', true)
+            ->count();
+
+        $this->assertLessThan($amount, $customerAmount);
+    }
+
+    public function testSearchLimit()
     {
         $ids = $this->odoo
-            ->where('customer', '=', true)
-            ->limit(3)
-            ->search('res.partner');
+            ->model('res.partner')
+            ->limit(5)
+            ->search();
 
         $this->assertInstanceOf(Collection::class, $ids);
-        $this->assertArrayNotHasKey('faultCode',$ids);
-        $this->assertCount(3, $ids);
     }
 
-    /** @test */
-    public function retrieve_a_collection_only_with_field_name()
+    public function testRead()
     {
-        $models = $this->odoo
-            ->where('customer', true)
-            ->limit(3)
+        $ids = $this->odoo
+            ->model('res.partner')
+            ->limit(5)
+            ->search();
+
+        $items = $this->odoo
+            ->model('res.partner')
+            ->read($ids);
+
+        $this->assertInstanceOf(Collection::class, $items);
+        $this->assertCount(5, $items->all());
+    }
+
+
+    public function testSearchRead()
+    {
+        $items = $this->odoo
+            ->model('res.partner')
+            ->limit(5)
+            ->get();
+
+        $this->assertInstanceOf(Collection::class, $items);
+        $this->assertCount(5, $items);
+        $this->assertArrayHasKey('name',$items->first());
+    }
+
+    public function testSearchReadFields()
+    {
+        $items = $this->odoo
+            ->model('res.partner')
             ->fields('name')
-            ->get('res.partner');
+            ->limit(5)
+            ->get();
 
-        $this->assertArrayNotHasKey('email',$models->first());
-        $this->assertArrayHasKey('name',$models->first());
-        $this->assertInstanceOf(Collection::class, $models);
-        $this->assertArrayNotHasKey('faultCode',$models);
-        $this->assertCount(3, $models);
-
+        $this->assertInstanceOf(Collection::class, $items);
+        $this->assertCount(5, $items);
+        $this->assertArrayHasKey('name',$items->first());
+        $this->assertArrayNotHasKey('email',$items->first());
     }
 
     /** @test */
-    public function get_fields_of_partner_model()
+    public function testListFields()
     {
-        $fields = $this->odoo->fieldsOf('res.partner');
+        $fields = $this->odoo
+            ->model('res.partner')
+            ->listModelFields();
 
         $this->assertInstanceOf(Collection::class, $fields);
-        $this->assertArrayNotHasKey('faultCode',$fields);
     }
 
-    /** @test */
-    public function create_new_record()
+    public function testCreateRecord()
     {
+
         $id = $this->odoo
-            ->create('res.partner',['name' => 'John Odoo']);
+            ->model('res.partner')
+            ->create([
+                'name' => 'Bobby Brown'
+            ]);
 
         $this->assertEquals('integer', gettype($id));
     }
+
 
     /** @test */
     public function delete_a_record()

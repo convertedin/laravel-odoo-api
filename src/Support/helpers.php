@@ -14,17 +14,21 @@
  */
 function laradooConfig()
 {
+    $defaults = [
+        'api-suffix' => 'xmlrpc/2',
+        'encoding' => 'utf-8'
+    ];
+
+    $configuration = [];
+
     if (function_exists('config_path')) {
         if (file_exists(config_path('laradoo.php'))) {
             $configuration = include(config_path('laradoo.php'));
 
-            return $configuration;
         }
     }
 
-    $configuration = include(__DIR__ . '/../Config/config.php');
-
-    return $configuration;
+    return array_merge($defaults , $configuration);
 }
 
 /**

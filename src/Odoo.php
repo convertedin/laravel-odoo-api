@@ -11,7 +11,8 @@ namespace Edujugon\Laradoo;
 
 use Edujugon\Laradoo\Exceptions\OdooException;
 use Illuminate\Support\Collection;
-use ripcord;
+use Ripcord\Client\Client;
+use Ripcord\Ripcord;
 
 
 class Odoo
@@ -73,8 +74,13 @@ class Odoo
      *
      * @var string
      */
-    protected $suffix = '/xmlrpc/';
+    protected $suffix = '/xmlrpc/2';
 
+    /**
+     * Transport Encoding for ripcord
+     * @var string
+     */
+    protected $encoding = 'utf-8';
 
     /**
      * Common endpoint
@@ -120,6 +126,8 @@ class Odoo
      * @var array
      */
     protected $fields;
+
+
 
 
     /**
@@ -449,11 +457,13 @@ class Odoo
      * Get a XML-RPC client
      *
      * @param string $endPoint
-     * @return \Ripcord_Client
+     * @return Client
      */
     public function getClient($endPoint)
     {
-        return ripcord::client($endPoint);
+        return Ripcord::client($endPoint, [
+            'encoding' => $this->encoding
+        ]);
     }
 
     /**
@@ -618,7 +628,7 @@ class Odoo
      * @param array $array
      * @throws OdooException
      */
-    private function auth($db, $username, $password, array $array = [])
+    protected function auth($db, $username, $password, array $array = [])
     {
         //Prepare urls for different clients
         $urlCommon = $this->setApiEndPoint($this->commonEndPoint);
@@ -647,7 +657,7 @@ class Odoo
      * @return string
      * @throws OdooException OdooException
      */
-    private function setApiEndPoint($endPoint)
+    protected function setApiEndPoint($endPoint)
     {
         if (empty($this->host))
             throw new OdooException('You must provide the odoo host by host setter method');
@@ -661,7 +671,7 @@ class Odoo
      *
      * @param $params
      */
-    private function resetParams($params)
+    protected function resetParams($params)
     {
         $keys = is_array($params) ? $params : func_get_args();
 
@@ -679,7 +689,7 @@ class Odoo
      * @return array
      * @internal param $keys
      */
-    private function buildParams($params)
+    protected function buildParams($params)
     {
         $keys = is_array($params) ? $params : func_get_args();
 
@@ -704,7 +714,7 @@ class Odoo
      * @param null $cast Cast returned data based on this param.
      * @return mixed
      */
-    private function makeResponse($result, $key = null, $cast = null)
+    protected function makeResponse($result, $key = null, $cast = null)
     {
         if (array_key_exists('faultCode', $result->toArray()))
             return $result['faultCode'];
@@ -720,7 +730,7 @@ class Odoo
     /**
      * Load data from config file.
      */
-    private function loadConfigData()
+    protected function loadConfigData()
     {
         //Load config data
         $config = laradooConfig();
@@ -735,6 +745,8 @@ class Odoo
         $this->db = array_key_exists('db', $config) ? $config['db'] : $this->db;
         $this->username = array_key_exists('username', $config) ? $config['username'] : $this->username;
         $this->password = array_key_exists('password', $config) ? $config['password'] : $this->password;
+
+        $this->encoding = array_key_exists('encoding', $config) ? $config['encoding'] : $this->encoding;
     }
 
 
@@ -743,7 +755,7 @@ class Odoo
      * @param $param
      * @return bool
      */
-    private function hasNotProvided($param)
+    protected function hasNotProvided($param)
     {
         return !$param;
     }
@@ -751,7 +763,7 @@ class Odoo
     /**
      * Auto connect with the ERP if there isn't uid.
      */
-    private function autoConnect()
+    protected function autoConnect()
     {
         if (!$this->uid) $this->connect();
     }

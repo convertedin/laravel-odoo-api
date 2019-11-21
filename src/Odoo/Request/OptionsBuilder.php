@@ -31,12 +31,20 @@ class OptionsBuilder
         return $this;
     }
 
-    public function build()
+    public function build(?array $skipOptions = null)
     {
+        $options = $this->options;
+        if(!empty($skipOptions)){
+            // Filter Skipped Options
+            $options = collect($options)->filter(function($_, $key) use($skipOptions){
+                return array_search($key, $skipOptions) === false;
+            })->all();
+        }
+
         if ($this->context->isEmpty()) {
-            return $this->options;
+            return $options;
         } else {
-            return $this->options + ['context' => $this->context->build()];
+            return $options + ['context' => $this->context->build()];
         }
     }
 

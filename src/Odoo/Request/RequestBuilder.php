@@ -66,7 +66,7 @@ class RequestBuilder
     }
 
 
-    public function build()
+    public function build(?array $skipOptions = null)
     {
         if(empty($this->model)){
             throw new OdooException("Model not set!");
@@ -80,7 +80,7 @@ class RequestBuilder
             $this->model,
             $this->method,
             $this->getArguments(),
-            $this->options->build(),
+            $this->options->build($skipOptions),
             $this->responseClasses
         );
     }
@@ -282,7 +282,7 @@ class RequestBuilder
 
         $this->addArgument($this->queryBuilder->build());
 
-        $request = $this->build();
+        $request = $this->build(['fields']);
 
         return $request->get();
     }
@@ -395,7 +395,7 @@ class RequestBuilder
 
         $this->setArguments([$ids, $attributes]);
 
-        $request = $this->build();
+        $request = $this->build(['fields']);
 
         return $request->get();
     }

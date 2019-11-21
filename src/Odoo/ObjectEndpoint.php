@@ -4,6 +4,7 @@
 namespace Obuchmann\LaravelOdooApi\Odoo;
 
 
+use Obuchmann\LaravelOdooApi\Odoo\Request\ContextBuilder;
 use Obuchmann\LaravelOdooApi\Odoo\Response\BooleanResponse;
 use Obuchmann\LaravelOdooApi\Odoo\Response\Response;
 
@@ -15,15 +16,25 @@ class ObjectEndpoint extends Endpoint
      */
     protected $uid;
 
+    /**
+     * @param ContextBuilder
+     */
+    protected $contextBuilder;
+
     public function setUid(int $uid)
     {
         $this->uid = $uid;
     }
 
+    public function getContext()
+    {
+        return $this->contextBuilder;
+    }
+
     /**
-     * @return int
+     * @return int|null
      */
-    public function getUid(): int
+    public function getUid(): ?int
     {
         return $this->uid;
     }
@@ -32,13 +43,17 @@ class ObjectEndpoint extends Endpoint
     public function __construct(ConfigFactory $configFactory)
     {
         parent::__construct($configFactory, Endpoint::OBJECT_ENDPOINT_NAME);
+        $this->contextBuilder = new ContextBuilder();
     }
 
     public function newRequest()
     {
-        return $this->getRequestFactory()
+        $requets =  $this->getRequestFactory()
             ->newRequest($this->getConfig())
-            ->setUid($this->uid);
+            ->setUid($this->uid)
+            ->setContext($this->getContext());
+
+        return $requets;
     }
 
 

@@ -191,6 +191,29 @@ class RequestBuilder
         return $this->arguments;
     }
 
+    /**
+     * @return OptionsBuilder
+     */
+    public function getOptions(): OptionsBuilder
+    {
+        return $this->options;
+    }
+
+    /**
+     * @return ContextBuilder
+     */
+    public function getContext(): ContextBuilder
+    {
+        return $this->options->getContext();
+    }
+
+    public function setContext(ContextBuilder $contextBuilder)
+    {
+        $this->getOptions()->setContext($contextBuilder);
+        return $this;
+    }
+
+
     #region Query Shorthands
 
     /**
@@ -281,7 +304,13 @@ class RequestBuilder
         $request = $this->build();
 
         return $request->get();
+    }
 
+    public function readOne($id)
+    {
+
+        $this->limit(1);
+        return $this->read($id)->first();
     }
 
     public function get()

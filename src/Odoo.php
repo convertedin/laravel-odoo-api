@@ -24,6 +24,9 @@ use Ripcord\Ripcord;
  * @method Odoo password(string $password)
  * @method Odoo db(string $db)
  * @method Odoo host(string $host)
+ * @method Odoo apiSuffix(string $apiSuffix)
+ *
+ * @method Odoo lang(string $lang)
  *
  * @method VersionResponse version()
  * @method int authenticate()
@@ -35,6 +38,7 @@ use Ripcord\Ripcord;
  * @method RequestBuilder limit($limit, $offset = 0)
  * @method RequestBuilder fields($fields)
  * @method RequestBuilder model($model)
+ *
  */
 class Odoo
 {
@@ -95,201 +99,42 @@ class Odoo
             'limit',
             'fields',
         ]);
+
+        $this->proxy($this->objectEndpoint->getContext(),[
+            'lang' => 'setLang'
+        ], true);
+
+        $this->guard([
+            'can',
+            'model',
+            'where',
+            'limit',
+            'fields',
+        ],[$this, 'connect']);
     }
 
-
     /**
-     * Login to Odoo ERP.
-     *
-     * @param string $db
-     * @param string $username
-     * @param string $password
-     * @param array $array
+     * Tries to connect to Odoo
      * @return $this
-     * @throws OdooException
      */
-    public function connect($db = null, $username = null, $password = null, array $array = [])
+    public function connect()
     {
-
-        if($db){
-            $this->db($db);
+        if(!$this->getUid()){
+            $this->forceConnect();
         }
-        if($username){
-            $this->username($username);
-        }
-        if($password){
-            $this->password($password);
-        }
-//       if($array){
-//           $this->context($array);
-//       }
-
-        $uid = $this->authenticate();
-        $this->objectEndpoint->setUid($uid);
 
         return $this;
     }
 
-
-
-
     /**
-     * Create a single record and return its database identifier.
-     *
-     * @param string $model
-     * @param array $data
-     * @return integer
+     * Forces new Login
+     * @return $this
      */
-    public function create($model, array $data)
+    public function forceConnect()
     {
-        $method = 'create';
+        $uid = $this->authenticate();
+        $this->objectEndpoint->setUid($uid);
 
-        $result = $this->call($model, $method, [$data]);
-
-
-        return $this->makeResponse($result, 0);
-    }
-
-    /**
-     * Update one or more records.
-     * returns true except when an error happened.
-     *
-     * @param string $model
-     * @param array $data
-     * @return true|string
-     * @throws OdooException
-     */
-    public function update($model, array $data)
-    {
-        if ($this->hasNotProvided($this->condition))
-            return "To prevent updating all records you must provide at least one condition. Using where method would solve this.";
-
-        $method = 'write';
-
-        $ids = $this->search($model);
-
-        //If string it can't continue for retrieving models
-        //Throw exception with the error.
-        if (is_string($ids))
-            throw new OdooException($ids);
-
-        $result = $this->call($model, $method, [$ids->toArray(), $data]);
-
-        return $this->makeResponse($result, 0);
-    }
-
-    /**
-     * Remove a record by Id or Ids.
-     * returns true except when an error happened.
-     *
-     * @param string $model
-     * @param array|Collection|int $id
-     * @return true|string
-     */
-    public function deleteById($model, $id)
-    {
-        if ($id instanceof Collection)
-            $id = $id->toArray();
-
-        $method = 'unlink';
-
-        $result = $this->call($model, $method, [$id]);
-
-        return $this->makeResponse($result, 0);
-    }
-
-    /**
-     * Remove one or a group of records.
-     * returns true except when an error happened.
-     *
-     * @param string $model
-     * @return true|string
-     * @throws OdooException
-     */
-    public function delete($model)
-    {
-        if ($this->hasNotProvided($this->condition))
-            return "To prevent deleting all records you must provide at least one condition. Using where method would solve this.";
-
-        $ids = $this->search($model);
-
-        //If string it can't continue for retrieving models
-        //Throw exception with the error.
-        if (is_string($ids))
-            throw new OdooException($ids);
-
-        return $this->deleteById($model, $ids);
-    }
-
-    /**
-     * Run execute_kw call with provided params.
-     *
-     * @param $params
-     * @return Collection
-     */
-    public function call($params)
-    {
-        //Prevent user forgetting connect with the ERP.
-        $this->autoConnect();
-
-        $args = array_merge(
-            [$this->db, $this->uid, $this->password],
-            func_get_args()
-        );
-
-        $response = call_user_func_array([$this->object, 'execute_kw'], $args);
-
-        return collect($response);
-    }
-
-
-    /**
-     * **********
-     * END API LIST
-     * **********
-     */
-
-
-    /**
-     * Prepare the api response.
-     * If there is a faultCode then return its value.
-     * If key passed, returns the value of that key.
-     * Otherwise return the provided data.
-     *
-     * @param Collection $result
-     * @param string $key
-     * @param null $cast Cast returned data based on this param.
-     * @return mixed
-     */
-    protected function makeResponse($result, $key = null, $cast = null)
-    {
-        if (array_key_exists('faultCode', $result->toArray()))
-            throw new OdooException($result);
-
-        if (!is_null($key) && array_key_exists($key, $result->toArray()))
-            $result = $result->get($key);
-
-        if ($cast) settype($result, $cast);
-
-        return $result;
-    }
-
-
-    /**
-     * Check if user has provided a passed parameter.
-     * @param $param
-     * @return bool
-     */
-    protected function hasNotProvided($param)
-    {
-        return !$param;
-    }
-
-    /**
-     * Auto connect with the ERP if there isn't uid.
-     */
-    protected function autoConnect()
-    {
-        if (!$this->uid) $this->connect();
+        return $this;
     }
 }

@@ -102,7 +102,9 @@ class Odoo
         ]);
 
         $this->proxy($this->objectEndpoint->getContext(),[
-            'lang' => 'setLang'
+            'lang' => 'setLang',
+            'companyId' => 'setCompanyId',
+            'updateContext' => 'setOptions'
         ], true);
 
         $this->guard([

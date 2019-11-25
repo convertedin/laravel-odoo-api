@@ -29,4 +29,15 @@ class ContextBuilder
     {
         $this->set('lang', $lang);
     }
+
+    public function setCompanyId($companyId)
+    {
+        $this->set('company_id', $companyId);
+    }
+
+    public function setOptions(array $args){
+        foreach ($args as $key => $value) {
+            $this->set($key, $value);
+        }
+    }
 }

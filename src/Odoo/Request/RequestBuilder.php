@@ -317,8 +317,6 @@ class RequestBuilder
 
     public function readOne($id)
     {
-
-        $this->limit(1);
         return $this->read($id)->first();
     }
 

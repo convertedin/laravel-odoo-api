@@ -80,6 +80,7 @@ class Odoo
             'username' => 'setUsername',
             'password' => 'setPassword',
             'apiSuffix' => 'setSuffix',
+            'encoding' => 'setEncoding',
             'uid' => 'setUid'
         ], true);
 

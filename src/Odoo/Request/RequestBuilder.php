@@ -236,6 +236,15 @@ class RequestBuilder
         return $this;
     }
 
+    public function orderBy($field, $direction = "")
+    {
+        if(!empty($direction)){
+            $field.= " ".$direction;
+        }
+        $this->setOption('order', $field);
+        return $this;
+    }
+
     public function fields($fields)
     {
         $fields = is_array($fields) ? $fields : func_get_args();
@@ -357,6 +366,9 @@ class RequestBuilder
 
     public function deleteById($ids)
     {
+        if(empty($ids)){
+            return null;
+        }
         $ids = $this->extractIds($ids);
 
         $this->method = 'unlink';

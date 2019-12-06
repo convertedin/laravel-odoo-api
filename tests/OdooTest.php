@@ -35,17 +35,12 @@ class OdooTest extends TestCase
     protected function setDemoCredentials()
     {
 
-//        $info = Ripcord::client('https://demo.odoo.com/start', [
-//            'encoding' => 'utf-8'
-//        ])->start();
-//
-//        list($this->host, $this->db, $this->username, $this->password) =
-//            array($info['host'], $info['database'], $info['user'], $info['password']);
+        $info = Ripcord::client('https://demo.odoo.com/start', [
+            'encoding' => 'utf-8'
+        ])->start();
 
-        $this->host = "http://localhost:18069";
-        $this->db = "pcweb_live";
-        $this->username = 'admin';
-        $this->password = 'admin';
+        list($this->host, $this->db, $this->username, $this->password) =
+            array($info['host'], $info['database'], $info['user'], $info['password']);
 
     }
 

@@ -24,7 +24,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": "^7.2||^8.0",
-    "illuminate/support": "^5.2||^6.0||^0.7||^0.8",
+    "illuminate/support": "^5.2||^6.0||^7.0||^8.0",
     "darkaonline/ripcord": "^0.1.7"
   },
   "require-dev": {

@@ -57,22 +57,23 @@ class Odoo
 
     /**
      * Create a new Odoo instance
+     * @param array $config
      * @throws Exceptions\ConfigurationException
      * @throws \Ripcord\Exceptions\ConfigurationException
      */
-    function __construct()
+    function __construct(array $config = [])
     {
-        $this->loadConfigData();
+        $this->loadConfigData($config);
     }
 
     /**
      * Load data from config file.
+     * @param array $config
      * @throws Exceptions\ConfigurationException
-     * @throws \Ripcord\Exceptions\ConfigurationException
      */
-    protected function loadConfigData()
+    protected function loadConfigData(array $config = [])
     {
-        $this->configFactory = new ConfigFactory(laravelOdooApiConfig());
+        $this->configFactory = new ConfigFactory(laravelOdooApiConfig($config));
 
         $this->proxy($this->configFactory, [
             'host' => 'setHost',

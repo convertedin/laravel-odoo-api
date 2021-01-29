@@ -3,9 +3,10 @@
 /**
  * Get configuration array data.
  *
+ * @param array $overrides
  * @return array
  */
-function laravelOdooApiConfig()
+function laravelOdooApiConfig(array $overrides = [])
 {
     $defaults = [
         'api-suffix' => 'xmlrpc/2',
@@ -21,7 +22,7 @@ function laravelOdooApiConfig()
         }
     }
 
-    return array_merge($defaults , $configuration);
+    return array_merge($defaults, $configuration, $overrides);
 }
 
 /**

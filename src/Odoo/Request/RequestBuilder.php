@@ -229,9 +229,16 @@ class RequestBuilder
     }
 
 
-    public function limit($limit, $offset = 0)
+    public function limit($limit, $offset = null)
     {
         $this->setOption('limit', $limit);
+        if($offset != null) {
+            $this->setOption('offset', $offset);
+        }
+        return $this;
+    }
+    public function offset($offset)
+    {
         $this->setOption('offset', $offset);
         return $this;
     }

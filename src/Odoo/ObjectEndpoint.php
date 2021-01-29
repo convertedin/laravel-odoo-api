@@ -48,7 +48,7 @@ class ObjectEndpoint extends Endpoint
 
     public function newRequest()
     {
-        $requets =  $this->getRequestFactory()
+        $requets = $this->getRequestFactory()
             ->newRequest($this->getConfig())
             ->setUid($this->uid)
             ->setContext($this->getContext());
@@ -77,7 +77,7 @@ class ObjectEndpoint extends Endpoint
             ->where($field, $operator, $value);
     }
 
-    public function limit($limit, $offset = 0)
+    public function limit($limit, $offset = null)
     {
         return $this->newRequest()
             ->limit($limit, $offset);

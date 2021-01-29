@@ -21,7 +21,7 @@ class Request
      */
     protected $responseFactory;
 
-    protected $db;
+    protected $database;
 
     protected $uid;
 
@@ -41,7 +41,7 @@ class Request
      * Request constructor.
      * @param Client $client
      * @param ResponseFactory $responseFactory
-     * @param $db
+     * @param $database
      * @param $uid
      * @param $password
      * @param $model
@@ -50,11 +50,11 @@ class Request
      * @param array|string|null $options
      * @param array|string|null $responseClasses
      */
-    public function __construct(Client $client, ResponseFactory $responseFactory, $db, $uid, $password, $model, $method, $arguments, $options, $responseClasses)
+    public function __construct(Client $client, ResponseFactory $responseFactory, $database, $uid, $password, $model, $method, $arguments, $options, $responseClasses)
     {
         $this->client = $client;
         $this->responseFactory = $responseFactory;
-        $this->db = $db;
+        $this->database = $database;
         $this->uid = $uid;
         $this->password = $password;
         $this->model = $model;
@@ -68,7 +68,7 @@ class Request
     public function toArray()
     {
         return [
-            $this->db, $this->uid, $this->password,
+            $this->database, $this->uid, $this->password,
             $this->model,
             $this->method,
             $this->arguments,
@@ -83,7 +83,7 @@ class Request
     public function getResponse(): Response
     {
         $response = call_user_func([$this->client, 'execute_kw'],
-            $this->db, $this->uid, $this->password,
+            $this->database, $this->uid, $this->password,
             $this->model, $this->method,
             $this->arguments,
             $this->options

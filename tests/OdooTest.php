@@ -15,7 +15,7 @@ class OdooTest extends TestCase
      * Demo credentials set.
      */
     protected $host;
-    protected $db;
+    protected $database;
     protected $username;
     protected $password;
 
@@ -39,7 +39,7 @@ class OdooTest extends TestCase
             'encoding' => 'utf-8'
         ])->start();
 
-        list($this->host, $this->db, $this->username, $this->password) =
+        list($this->host, $this->database, $this->username, $this->password) =
             array($info['host'], $info['database'], $info['user'], $info['password']);
 
     }
@@ -52,7 +52,7 @@ class OdooTest extends TestCase
         $this->odoo = $this->odoo
             ->username($this->username)
             ->password($this->password)
-            ->db($this->db)
+            ->database($this->database)
             ->host($this->host)
             ->connect();
     }
@@ -65,7 +65,7 @@ class OdooTest extends TestCase
         $this->odoo = (new Odoo())
             ->username($this->username)
             ->password($this->password.'invalid')
-            ->db($this->db)
+            ->database($this->database)
             ->host($this->host)
             ->connect();
     }

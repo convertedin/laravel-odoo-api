@@ -22,7 +22,7 @@ use Ripcord\Ripcord;
  * @package Obuchmann\LaravelOdooApi
  * @method Odoo username(string $username)
  * @method Odoo password(string $password)
- * @method Odoo db(string $db)
+ * @method Odoo database(string $database)
  * @method Odoo host(string $host)
  * @method Odoo apiSuffix(string $apiSuffix)
  *
@@ -77,7 +77,7 @@ class Odoo
 
         $this->proxy($this->configFactory, [
             'host' => 'setHost',
-            'db' => 'setDb',
+            'database' => 'setDatabase',
             'username' => 'setUsername',
             'password' => 'setPassword',
             'apiSuffix' => 'setSuffix',

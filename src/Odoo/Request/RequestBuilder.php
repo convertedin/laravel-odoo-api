@@ -18,7 +18,7 @@ use Illuminate\Support\Collection;
 
 class RequestBuilder
 {
-    protected $db;
+    protected $database;
 
     protected $uid;
 
@@ -74,7 +74,7 @@ class RequestBuilder
         return new Request(
             $this->client,
             $this->responseFactory,
-            $this->db,
+            $this->database,
             $this->uid,
             $this->password,
             $this->model,
@@ -86,9 +86,9 @@ class RequestBuilder
     }
 
 
-    public function setDb($db)
+    public function setDatabase($database)
     {
-        $this->db = $db;
+        $this->database = $database;
         return $this;
     }
 

@@ -9,11 +9,11 @@ use Obuchmann\LaravelOdooApi\Exceptions\ConfigurationException;
 class Config
 {
     /**
-     * DB Name
+     * Database Name
      *
      * @var string
      */
-    protected $db;
+    protected $database;
 
     /**
      * Host Name
@@ -52,7 +52,7 @@ class Config
 
     /**
      * Config constructor.
-     * @param string $db
+     * @param string $database
      * @param string $host
      * @param string $username
      * @param string $password
@@ -60,9 +60,9 @@ class Config
      * @param string $encoding
      * @param int|null $uid
      */
-    public function __construct(string $db, string $host, string $username, string $password, string $suffix, string $encoding)
+    public function __construct(string $database, string $host, string $username, string $password, string $suffix, string $encoding)
     {
-        $this->db = $db;
+        $this->database = $database;
         $this->host = $host;
         $this->username = $username;
         $this->password = $password;
@@ -73,9 +73,9 @@ class Config
     /**
      * @return string
      */
-    public function getDb(): string
+    public function getDatabase(): string
     {
-        return $this->db;
+        return $this->database;
     }
 
     /**

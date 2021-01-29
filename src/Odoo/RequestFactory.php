@@ -38,7 +38,7 @@ class RequestFactory
 
         if ($config) {
             $request
-                ->setDb($config->getDb())
+                ->setDatabase($config->getDatabase())
                 ->setPassword($config->getPassword());
         }
         return $request;

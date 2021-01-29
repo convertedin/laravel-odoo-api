@@ -50,7 +50,7 @@ After publishing the package config file, the base configuration for laravel-odo
 
 Also, you can dynamically update those values calling the available setter methods:
 
-`host($url)`, `username($username)`, `password($password)`, `db($name)`, `apiSuffix($name)`
+`host($url)`, `username($username)`, `password($password)`, `database($name)`, `apiSuffix($name)`
 
 
 ##  Usage samples
@@ -79,7 +79,7 @@ All needed configuration data is taken from `laravel-odoo-api.php` config file. 
 $this->odoo = $this->odoo
             ->username('my-user-name')
             ->password('my-password')
-            ->db('my-db')
+            ->database('my-db')
             ->host('https://my-host.com')
             ->connect();
 ```

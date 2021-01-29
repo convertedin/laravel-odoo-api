@@ -32,7 +32,7 @@ class CommonEndpoint extends Endpoint
     {
         $client = $this->getClient(true);
         $uid = $client->authenticate(
-            $this->getConfig()->getDb(),
+            $this->getConfig()->getDatabase(),
             $this->getConfig()->getUsername(),
             $this->getConfig()->getPassword(),
             ['empty' => 'false'] // Context // Bug in v14 - it must not be empty

@@ -31,7 +31,7 @@ class ConfigFactory
     public function build(): Config
     {
         return new Config(
-            $this->getRequired('db'),
+            $this->getRequired('database'),
             $this->getRequired('host'),
             $this->getRequired('username'),
             $this->getRequired('password'),
@@ -57,11 +57,11 @@ class ConfigFactory
     }
 
     /**
-     * @param mixed $db
+     * @param mixed $database
      */
-    public function setDb($db): void
+    public function setDatabase($database): void
     {
-        $this->config['db'] = $db;
+        $this->config['database'] = $database;
     }
 
     /**

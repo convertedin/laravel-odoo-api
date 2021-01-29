@@ -35,7 +35,7 @@ class CommonEndpoint extends Endpoint
             $this->getConfig()->getDb(),
             $this->getConfig()->getUsername(),
             $this->getConfig()->getPassword(),
-            [] // Context
+            ['empty' => 'false'] // Context // Bug in v14 - it must not be empty
         );
         if ($uid > 0) {
             return $uid;

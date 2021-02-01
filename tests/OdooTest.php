@@ -311,4 +311,30 @@ class OdooTest extends TestCase
         $this->assertCount(3, $ids);
     }
 
+
+    public function testOr()
+    {
+        $id = $this->odoo
+            ->model('res.partner')
+            ->create([
+                'name' => 'Bobby Brown'
+            ]);
+
+        $id2 = $this->odoo
+            ->model('res.partner')
+            ->create([
+                'name' => 'Gregor Green'
+            ]);
+
+        $ids = $this->odoo->model('res.partner')
+            ->setWheres(['|',
+                ['name', '=', 'Bobby Brown'],
+                ['name', '=', 'Gregor Green'],
+                ])
+            ->search()->toArray();
+
+        $this->assertTrue(in_array($id, $ids));
+        $this->assertTrue(in_array($id2, $ids));
+
+    }
 }

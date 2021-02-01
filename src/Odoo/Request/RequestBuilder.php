@@ -228,6 +228,12 @@ class RequestBuilder
         return $this;
     }
 
+    public function setWheres(array $wheres)
+    {
+        $this->queryBuilder->setWheres($wheres);
+        return $this;
+    }
+
 
     public function limit($limit, $offset = null)
     {

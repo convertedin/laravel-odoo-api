@@ -224,7 +224,13 @@ class RequestBuilder
      */
     public function where($field, $operator, $value)
     {
-        $this->queryBuilder->addWhere($field, $operator, $value);
+        $this->queryBuilder->where($field, $operator, $value);
+        return $this;
+    }
+
+    public function orWhere($field, $operator, $value)
+    {
+        $this->queryBuilder->orWhere($field, $operator, $value);
         return $this;
     }
 

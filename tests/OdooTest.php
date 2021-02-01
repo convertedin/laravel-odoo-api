@@ -306,9 +306,38 @@ class OdooTest extends TestCase
             ]])
             ->setOption('limit', 3)
             ->addResponseClass(Odoo\Response\ListResponse::class)
-            ->get();
+            ->build()->get();
         $this->assertInstanceOf(Collection::class, $ids);
         $this->assertCount(3, $ids);
+    }
+
+    public function testCallWhereDirect(){
+
+        $id = $this->odoo
+            ->model('res.partner')
+            ->create([
+                'name' => 'Bobby Brown'
+            ]);
+
+        $id2 = $this->odoo
+            ->model('res.partner')
+            ->create([
+                'name' => 'Gregor Green'
+            ]);
+
+        $ids = $this->odoo
+            ->model('res.partner')
+            ->setMethod('search')
+            ->setArguments([[
+                '|',
+                ['name', '=', 'Bobby Brown'],
+                ['name', '=', 'Gregor Green'],
+            ]])
+            ->addResponseClass(Odoo\Response\ListResponse::class)
+            ->build()->get()->toArray();
+
+        $this->assertTrue(in_array($id, $ids));
+        $this->assertTrue(in_array($id2, $ids));
     }
 
 
@@ -327,14 +356,13 @@ class OdooTest extends TestCase
             ]);
 
         $ids = $this->odoo->model('res.partner')
-            ->setWheres(['|',
-                ['name', '=', 'Bobby Brown'],
-                ['name', '=', 'Gregor Green'],
-                ])
+            ->where('name', '=', 'Bobby Brown')
+            ->orWhere('name', '=', 'Gregor Green')
             ->search()->toArray();
 
         $this->assertTrue(in_array($id, $ids));
         $this->assertTrue(in_array($id2, $ids));
 
     }
+
 }

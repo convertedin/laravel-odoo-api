@@ -6,7 +6,17 @@ namespace Obuchmann\LaravelOdooApi\Odoo\Request;
 
 class QueryBuilder
 {
-    protected array $conditions = [];
+    protected array $conditions;
+
+    /**
+     * QueryBuilder constructor.
+     * @param array $conditions
+     */
+    public function __construct(array $conditions = [])
+    {
+        $this->conditions = $conditions;
+    }
+
 
     public function where(string $field, string $operator, $value)
     {

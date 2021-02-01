@@ -227,19 +227,28 @@ class RequestBuilder
         $this->queryBuilder->where($field, $operator, $value);
         return $this;
     }
-
+    /**
+     * @param $field
+     * @param $operator
+     * @param $value
+     * @return $this
+     */
     public function orWhere($field, $operator, $value)
     {
         $this->queryBuilder->orWhere($field, $operator, $value);
         return $this;
     }
 
-    public function setWheres(array $wheres)
+    public function setConditions(array $conditions)
     {
-        $this->queryBuilder->setWheres($wheres);
-        return $this;
+        return $this->setQueryBuilder(new QueryBuilder($conditions));
     }
 
+    public function setQueryBuilder(QueryBuilder $queryBuilder)
+    {
+        $this->queryBuilder = $queryBuilder;
+        return $this;
+    }
 
     public function limit($limit, $offset = null)
     {

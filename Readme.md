@@ -1,6 +1,6 @@
 # Laravel Odoo Api
 
-Odoo ERP API for Laravel. [Odoo website](https://www.odoo.com)
+This is a medium level API to Odoo (former OpenERP) XMLRPC-API for Laravel. [Odoo website](https://www.odoo.com)
 
 This package is a successor of [Laradoo](https://github.com/Edujugon/laradoo), but there is no backwards compatibility!
 
@@ -9,19 +9,34 @@ This package is a successor of [Laradoo](https://github.com/Edujugon/laradoo), b
 
 ## Compatibility
 
-Laravel 5.2 and higher
+Laravel 7 and higher
 
 Odoo 8.0 and higher
 
+Php 7.4 and higher
+
 ## Installation
 
-type in console:
+This package is installed via [Composer](https://getcomposer.org/). To install, run the following command.
 
 ```shel
 composer require obuchmann/laravel-odoo-api
 ```
 
+Publish the package's configuration file to the application's own config directory
+
+```php
+php artisan vendor:publish --provider="Obuchmann\LaravelOdooApi\Providers\OdooServiceProvider" --tag="config"
+```
+
+### 
+
+This package supports autodiscover.
+
+If you don't use autodiscover for reasons, you can add the provider as described below.
+
 Register Laravel Odoo Api service by adding it to the providers array.
+
 ```php
 'providers' => array(
         ...
@@ -35,12 +50,6 @@ You can also add the Alias facade.
         ...
         'Odoo' => Obuchmann\LaravelOdooApi\Facades\Odoo::class,
     )
-```
-    
-Publish the package's configuration file to the application's own config directory
-
-```php
-php artisan vendor:publish --provider="Obuchmann\LaravelOdooApi\Providers\OdooServiceProvider" --tag="config"
 ```
 
 ### Configuration
@@ -163,7 +172,7 @@ For Deleting records we have the `delete` method:
 ```php
 $result = $odoo
     ->model('res.partner')
-    ->where('name', 'Bobby Brown')
+    ->where('name', '=', 'Bobby Brown')
     ->delete();
 ```
 > Notice that before calling `delete` method you have to use `where`.
@@ -181,7 +190,7 @@ Update any record of your Odoo:
 ```php
 $updateSuccessfull = $odoo
     ->model('res.partner')
-    ->where('name', 'Bobby Brown')
+    ->where('name', '=', 'Bobby Brown')
     ->update(['name' => 'Dagobert Duck','email' => 'daduck@odoo.com']);
 ```
 

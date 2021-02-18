@@ -27,7 +27,7 @@ class OdooServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-odoo-api.php', 'laravel-odoo-api');
+        $this->mergeConfigFrom(__DIR__.'/../../config/laravel-odoo-api.php', 'laravel-odoo-api');
         
         $this->app->bind(Odoo::class, function ($app) {
             return new Odoo();
@@ -37,7 +37,7 @@ class OdooServiceProvider extends ServiceProvider
     private function bootForConsole()
     {
         $this->publishes([
-            __DIR__.'/../config/laravel-odoo-api.php' => config_path('laravel-odoo-api.php'),
+            __DIR__.'/../../config/laravel-odoo-api.php' => config_path('laravel-odoo-api.php'),
         ], 'laravel-odoo-api.config');
 
     }

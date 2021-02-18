@@ -14,11 +14,10 @@ class OdooServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $config_path = function_exists('config_path') ? config_path('laravel-odoo-api.php') : 'laravel-odoo-api.php';
-
-        $this->publishes([
-            __DIR__.'/../Config/config.php' => $config_path,
-        ], 'config');
+        // Publishing is only necessary when using the CLI.
+        if ($this->app->runningInConsole()) {
+            $this->bootForConsole();
+        }
     }
 
     /**
@@ -28,8 +27,18 @@ class OdooServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/laravel-odoo-api.php', 'laravel-odoo-api');
+        
         $this->app->bind(Odoo::class, function ($app) {
             return new Odoo();
         });
+    }
+
+    private function bootForConsole()
+    {
+        $this->publishes([
+            __DIR__.'/../config/laravel-odoo-api.php' => config_path('laravel-odoo-api.php'),
+        ], 'laravel-odoo-api.config');
+
     }
 }

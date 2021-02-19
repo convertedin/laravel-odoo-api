@@ -1,31 +1,6 @@
 <?php
 
 /**
- * Get configuration array data.
- *
- * @param array $overrides
- * @return array
- */
-function laravelOdooApiConfig(array $overrides = [])
-{
-    $defaults = [
-        'api-suffix' => 'xmlrpc/2',
-        'encoding' => 'utf-8'
-    ];
-
-    $configuration = [];
-
-    if (function_exists('config_path')) {
-        if (file_exists(config_path('laravel-odoo-api.php'))) {
-            $configuration = include(config_path('laravel-odoo-api.php'));
-
-        }
-    }
-
-    return array_merge($defaults, $configuration, $overrides);
-}
-
-/**
  * Add Character to a given string if char no exists.
  * By default is concatenated either prefix and suffix.
  *

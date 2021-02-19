@@ -73,7 +73,7 @@ class Odoo
      */
     protected function loadConfigData(array $config = [])
     {
-        $this->configFactory = new ConfigFactory(laravelOdooApiConfig($config));
+        $this->configFactory = new ConfigFactory($config);
 
         $this->proxy($this->configFactory, [
             'host' => 'setHost',

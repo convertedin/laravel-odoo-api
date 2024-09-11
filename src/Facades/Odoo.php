@@ -1,4 +1,4 @@
-<?php namespace Obuchmann\LaravelOdooApi\Facades;
+<?php namespace Convertedin\LaravelOdooApi\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -9,6 +9,6 @@ class Odoo extends Facade {
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return \Obuchmann\LaravelOdooApi\Odoo::class; }
+    protected static function getFacadeAccessor() { return \Convertedin\LaravelOdooApi\Odoo::class; }
 
 }

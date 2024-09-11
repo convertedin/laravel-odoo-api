@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Odoo;
+namespace Convertedin\LaravelOdooApi\Odoo;
 
 
-use Obuchmann\LaravelOdooApi\Odoo\Request\RequestBuilder;
+use Convertedin\LaravelOdooApi\Odoo\Request\RequestBuilder;
 
 class RequestFactory
 {

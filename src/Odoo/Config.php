@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Odoo;
+namespace Convertedin\LaravelOdooApi\Odoo;
 
 
-use Obuchmann\LaravelOdooApi\Exceptions\ConfigurationException;
+use Convertedin\LaravelOdooApi\Exceptions\ConfigurationException;
 
 class Config
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Exceptions;
+namespace Convertedin\LaravelOdooApi\Exceptions;
 
 use Exception;
 

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Odoo;
+namespace Convertedin\LaravelOdooApi\Odoo;
 
 
 abstract class Endpoint

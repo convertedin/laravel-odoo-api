@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Odoo;
+namespace Convertedin\LaravelOdooApi\Odoo;
 
 
-use Obuchmann\LaravelOdooApi\Exceptions\AuthenticationException;
-use Obuchmann\LaravelOdooApi\Odoo\Response\VersionResponse;
+use Convertedin\LaravelOdooApi\Exceptions\AuthenticationException;
+use Convertedin\LaravelOdooApi\Odoo\Response\VersionResponse;
 
 class CommonEndpoint extends Endpoint
 {
@@ -16,7 +16,7 @@ class CommonEndpoint extends Endpoint
 
     /**
      * @return Response\Response
-     * @throws \Obuchmann\LaravelOdooApi\Exceptions\OdooException
+     * @throws \Convertedin\LaravelOdooApi\Exceptions\OdooException
      */
     public function version()
     {

@@ -1,41 +1,45 @@
 {
-  "name": "obuchmann/laravel-odoo-api",
+  "name": "convertedin/laravel-odoo-api",
   "description": "Laravel connector for Odoo",
   "keywords": [
     "odoo",
     "laravel",
-    "package"
+    "package",
+    "convertedin"
   ],
   "license": "MIT",
   "authors": [
     {
-      "name": "Oliver Buchmann",
-      "email": "obuchmanncode@gmail.com"
+      "name": "ConvertedIn",
+      "email": "info@converted.in"
     }
   ],
   "autoload": {
     "psr-4": {
-      "Obuchmann\\LaravelOdooApi\\": "src/"
+      "Convertedin\\LaravelOdooApi\\": "src/"
     },
     "files": [
       "src/Support/helpers.php"
     ]
   },
-  "minimum-stability": "stable",
   "require": {
-    "php": ">=^8.0|^7.0"
-},
+    "php": ">=8.0",
+    "guzzlehttp/guzzle": "^7.0",
+    "illuminate/support": "^8.0|^9.0|^10.0"
+  },
   "require-dev": {
-    "phpunit/phpunit": "~9.0"
+    "phpunit/phpunit": "^9.0"
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Obuchmann\\LaravelOdooApi\\Providers\\OdooServiceProvider"
+        "Convertedin\\LaravelOdooApi\\Providers\\OdooServiceProvider"
       ],
       "aliases": {
-        "Odoo": "Obuchmann\\LaravelOdooApi\\Facades\\Odoo"
+        "Odoo": "Convertedin\\LaravelOdooApi\\Facades\\Odoo"
       }
     }
-  }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }

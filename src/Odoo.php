@@ -1,15 +1,15 @@
 <?php
 
-namespace Obuchmann\LaravelOdooApi;
+namespace Convertedin\LaravelOdooApi;
 
-use Obuchmann\LaravelOdooApi\Exceptions\OdooException;
-use Obuchmann\LaravelOdooApi\Odoo\CommonEndpoint;
-use Obuchmann\LaravelOdooApi\Odoo\Config;
-use Obuchmann\LaravelOdooApi\Odoo\ConfigFactory;
-use Obuchmann\LaravelOdooApi\Odoo\ObjectEndpoint;
-use Obuchmann\LaravelOdooApi\Odoo\Request\RequestBuilder;
-use Obuchmann\LaravelOdooApi\Odoo\Response\VersionResponse;
-use Obuchmann\LaravelOdooApi\Support\Proxy;
+use Convertedin\LaravelOdooApi\Exceptions\OdooException;
+use Convertedin\LaravelOdooApi\Odoo\CommonEndpoint;
+use Convertedin\LaravelOdooApi\Odoo\Config;
+use Convertedin\LaravelOdooApi\Odoo\ConfigFactory;
+use Convertedin\LaravelOdooApi\Odoo\ObjectEndpoint;
+use Convertedin\LaravelOdooApi\Odoo\Request\RequestBuilder;
+use Convertedin\LaravelOdooApi\Odoo\Response\VersionResponse;
+use Convertedin\LaravelOdooApi\Support\Proxy;
 use Illuminate\Support\Collection;
 use Ripcord\Client\Client;
 use Ripcord\Ripcord;
@@ -19,7 +19,7 @@ use Ripcord\Ripcord;
  *
  * A Plain assembly Class
  *
- * @package Obuchmann\LaravelOdooApi
+ * @package Convertedin\LaravelOdooApi
  * @method Odoo username(string $username)
  * @method Odoo password(string $password)
  * @method Odoo database(string $database)

@@ -1,19 +1,19 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Odoo\Request;
+namespace Convertedin\LaravelOdooApi\Odoo\Request;
 
 
 use Carbon\Traits\Options;
-use Obuchmann\LaravelOdooApi\Exceptions\OdooException;
-use Obuchmann\LaravelOdooApi\Odoo\Client;
-use Obuchmann\LaravelOdooApi\Odoo\Response\BooleanResponse;
-use Obuchmann\LaravelOdooApi\Odoo\Response\EmptyListResponse;
-use Obuchmann\LaravelOdooApi\Odoo\Response\FaultCodeResponse;
-use Obuchmann\LaravelOdooApi\Odoo\Response\ListResponse;
-use Obuchmann\LaravelOdooApi\Odoo\Response\NumericResponse;
-use Obuchmann\LaravelOdooApi\Odoo\Response\ScalarResponse;
-use Obuchmann\LaravelOdooApi\Odoo\ResponseFactory;
+use Convertedin\LaravelOdooApi\Exceptions\OdooException;
+use Convertedin\LaravelOdooApi\Odoo\Client;
+use Convertedin\LaravelOdooApi\Odoo\Response\BooleanResponse;
+use Convertedin\LaravelOdooApi\Odoo\Response\EmptyListResponse;
+use Convertedin\LaravelOdooApi\Odoo\Response\FaultCodeResponse;
+use Convertedin\LaravelOdooApi\Odoo\Response\ListResponse;
+use Convertedin\LaravelOdooApi\Odoo\Response\NumericResponse;
+use Convertedin\LaravelOdooApi\Odoo\Response\ScalarResponse;
+use Convertedin\LaravelOdooApi\Odoo\ResponseFactory;
 use Illuminate\Support\Collection;
 
 class RequestBuilder
@@ -293,7 +293,7 @@ class RequestBuilder
     /**
      * @param null $model
      * @return mixed
-     * @throws \Obuchmann\LaravelOdooApi\Exceptions\OdooException
+     * @throws \Convertedin\LaravelOdooApi\Exceptions\OdooException
      */
     public function count()
     {
@@ -327,7 +327,7 @@ class RequestBuilder
     /**
      * @param $ids array|Collection
      * @return mixed
-     * @throws \Obuchmann\LaravelOdooApi\Exceptions\OdooException
+     * @throws \Convertedin\LaravelOdooApi\Exceptions\OdooException
      */
     public function read($ids)
     {

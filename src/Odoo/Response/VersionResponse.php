@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Odoo\Response;
+namespace Convertedin\LaravelOdooApi\Odoo\Response;
 
 
 class VersionResponse extends Response

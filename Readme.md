@@ -4,7 +4,7 @@ This is a medium level API to Odoo (former OpenERP) XMLRPC-API for Laravel. [Odo
 
 This package is a successor of [Laradoo](https://github.com/Edujugon/laradoo), but there is no backwards compatibility!
 
-:warning: **This Package is not Maintained any more. Successor is [Odoo Jsonrpc](https://packagist.org/packages/obuchmann/odoo-jsonrpc)**
+:warning: **This Package is not Maintained any more. Successor is [Odoo Jsonrpc](https://packagist.org/packages/Convertedin/odoo-jsonrpc)**
 
 
 
@@ -21,13 +21,13 @@ Php 7.4 and higher
 This package is installed via [Composer](https://getcomposer.org/). To install, run the following command.
 
 ```shel
-composer require obuchmann/laravel-odoo-api
+composer require Convertedin/laravel-odoo-api
 ```
 
 Publish the package's configuration file to the application's own config directory
 
 ```php
-php artisan vendor:publish --provider="Obuchmann\LaravelOdooApi\Providers\OdooServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Convertedin\LaravelOdooApi\Providers\OdooServiceProvider" --tag="config"
 ```
 
 ### 
@@ -41,7 +41,7 @@ Register Laravel Odoo Api service by adding it to the providers array.
 ```php
 'providers' => array(
         ...
-        Obuchmann\LaravelOdooApi\Providers\OdooServiceProvider::class
+        Convertedin\LaravelOdooApi\Providers\OdooServiceProvider::class
     )
 ```
 
@@ -49,7 +49,7 @@ You can also add the Alias facade.
 ```php
 'aliases' => array(
         ...
-        'Odoo' => Obuchmann\LaravelOdooApi\Facades\Odoo::class,
+        'Odoo' => Convertedin\LaravelOdooApi\Facades\Odoo::class,
     )
 ```
 
@@ -68,7 +68,7 @@ Also, you can dynamically update those values calling the available setter metho
 Instance the main Odoo class:
 
 ```php
-$odoo = new \Obuchmann\LaravelOdooApi\Odoo();
+$odoo = new \Convertedin\LaravelOdooApi\Odoo();
 ```
 You can get the Odoo API version just calling the version method:
 

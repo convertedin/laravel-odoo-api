@@ -1,6 +1,6 @@
 <?php
 
-use Obuchmann\LaravelOdooApi\Odoo\Request\QueryBuilder;
+use Convertedin\LaravelOdooApi\Odoo\Request\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 
 class QueryBuilderTest extends TestCase

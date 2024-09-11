@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Odoo\Request;
+namespace Convertedin\LaravelOdooApi\Odoo\Request;
 
 
 class QueryBuilder

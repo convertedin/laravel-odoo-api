@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Odoo;
+namespace Convertedin\LaravelOdooApi\Odoo;
 
 
-use Obuchmann\LaravelOdooApi\Exceptions\OdooException;
-use Obuchmann\LaravelOdooApi\Odoo\Response\FaultCodeResponse;
-use Obuchmann\LaravelOdooApi\Odoo\Response\Response;
+use Convertedin\LaravelOdooApi\Exceptions\OdooException;
+use Convertedin\LaravelOdooApi\Odoo\Response\FaultCodeResponse;
+use Convertedin\LaravelOdooApi\Odoo\Response\Response;
 
 class ResponseFactory
 {

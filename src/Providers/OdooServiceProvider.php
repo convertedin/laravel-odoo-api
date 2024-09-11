@@ -1,8 +1,8 @@
 <?php
 
-namespace Obuchmann\LaravelOdooApi\Providers;
+namespace Convertedin\LaravelOdooApi\Providers;
 
-use Obuchmann\LaravelOdooApi\Odoo;
+use Convertedin\LaravelOdooApi\Odoo;
 use Illuminate\Support\ServiceProvider;
 
 class OdooServiceProvider extends ServiceProvider

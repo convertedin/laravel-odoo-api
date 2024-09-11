@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Support;
+namespace Convertedin\LaravelOdooApi\Support;
 
 
 trait Proxy

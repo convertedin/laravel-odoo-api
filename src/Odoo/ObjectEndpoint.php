@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Obuchmann\LaravelOdooApi\Odoo;
+namespace Convertedin\LaravelOdooApi\Odoo;
 
 
-use Obuchmann\LaravelOdooApi\Odoo\Request\ContextBuilder;
-use Obuchmann\LaravelOdooApi\Odoo\Response\BooleanResponse;
-use Obuchmann\LaravelOdooApi\Odoo\Response\Response;
+use Convertedin\LaravelOdooApi\Odoo\Request\ContextBuilder;
+use Convertedin\LaravelOdooApi\Odoo\Response\BooleanResponse;
+use Convertedin\LaravelOdooApi\Odoo\Response\Response;
 
 class ObjectEndpoint extends Endpoint
 {
@@ -99,7 +99,7 @@ class ObjectEndpoint extends Endpoint
     /**
      * @param $model
      * @return mixed
-     * @throws \Obuchmann\LaravelOdooApi\Exceptions\OdooException
+     * @throws \Convertedin\LaravelOdooApi\Exceptions\OdooException
      */
 //    public function count($model)
 //    {

@@ -4,8 +4,6 @@ This is a medium level API to Odoo (former OpenERP) XMLRPC-API for Laravel. [Odo
 
 This package is a successor of [Laradoo](https://github.com/Edujugon/laradoo), but there is no backwards compatibility!
 
-:warning: **This Package is not Maintained any more. Successor is [Odoo Jsonrpc](https://packagist.org/packages/Convertedin/odoo-jsonrpc)**
-
 
 
 ## Compatibility
